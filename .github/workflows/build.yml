@@ -1,5 +1,5 @@
-name: Rust
-
+---
+name: Example multi arch-platform builds using buildjet
 on: [push]
 
 jobs:
@@ -19,8 +19,8 @@ jobs:
 
       - name: Build
         run: >
-          cargo build --all --release && 
-          strip target/release/bj_rs_test && 
+          cargo build --all --release &&
+          strip target/release/bj_rs_test &&
           mv target/release/bj_rs_test target/release/bj_rs_test_x86_64
 
       - name: Archive binary artifacts
@@ -44,13 +44,13 @@ jobs:
           override: true
 
       - name: Build
-        run: > 
-          cargo build --all --release && 
-          strip target/release/bj_rs_test && 
+        run: >
+          cargo build --all --release &&
+          strip target/release/bj_rs_test &&
           mv target/release/bj_rs_test target/release/bj_rs_test_arm64
 
       - name: Archive binary artifacts
-          uses: actions/upload-artifact@v3
-          with:
-            name: binary-linux-arm64
-            path: target/release/bj_rs_test_arm64
+        uses: actions/upload-artifact@v3
+        with:
+          name: binary-linux-arm64
+          path: target/release/bj_rs_test_arm64
