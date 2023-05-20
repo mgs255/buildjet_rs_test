@@ -19,9 +19,9 @@ jobs:
 
       - name: Build
         run: >
-        cargo build --all --release && 
-        strip target/release/bj_rs_test && 
-        mv target/release/bj_rs_test target/release/bj_rs_test_x86_64
+          cargo build --all --release && 
+          strip target/release/bj_rs_test && 
+          mv target/release/bj_rs_test target/release/bj_rs_test_x86_64
 
   build-linux-arm64:
     runs-on: buildjet-2vcpu-ubuntu-2204-arm
