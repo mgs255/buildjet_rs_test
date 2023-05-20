@@ -43,14 +43,30 @@ jobs:
           default: true
           override: true
 
-      - name: Build
+      - name: Add aarch64-apple-darwin target
+        run: rustup target add aarch64-apple-darwin
+
+      - name: Build macos
         run: >
-          cargo build --all --release &&
+          cargo build --target aarch64-apple-darwin --release &&
+          strip target/aarch64-apple-darwin/release/bj_rs_test &&
+          mv target/aarch64-apple-darwin/release/bj_rs_test
+          target/release/bj_rs_test_macos_arm64
+
+      - name: Archive binary artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: binary-macos-arm64
+          path: target/release/bj_rs_test_macos_arm64
+
+      - name: Build linux
+        run: >
+          cargo build --release &&
           strip target/release/bj_rs_test &&
-          mv target/release/bj_rs_test target/release/bj_rs_test_arm64
+          mv target/release/bj_rs_test target/release/bj_rs_test_linux_arm64    
 
       - name: Archive binary artifacts
         uses: actions/upload-artifact@v3
         with:
           name: binary-linux-arm64
-          path: target/release/bj_rs_test_arm64
+          path: target/release/bj_rs_test_linux_arm64
